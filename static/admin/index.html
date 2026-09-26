@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Управление мероприятиями — Slavyanochka</title>
+  <link rel="stylesheet" href="admin.css?v=1">
+  <link rel="stylesheet" href="gallery-admin.css?v=2">
+</head>
+<body>
+  <main class="admin-shell">
+    <header class="admin-header">
+      <a href="/" class="brand"><img src="../assets/logo.jpg" alt=""><span>Slavyanochka<small>Управление мероприятиями</small></span></a>
+      <div class="header-actions" hidden><a href="/" target="_blank" rel="noopener">Открыть сайт</a><button id="logout" type="button" class="button button-light">Выйти</button></div>
+    </header>
+
+    <section id="login-panel" class="panel login-panel">
+      <p class="eyebrow">Закрытый раздел</p>
+      <h1>Вход в админку</h1>
+      <p>Введите логин и пароль администратора.</p>
+      <form id="login-form">
+        <label>Логин<input name="username" autocomplete="username" required autofocus></label>
+        <label>Пароль<input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Войти</button>
+        <p class="form-message" role="alert"></p>
+      </form>
+    </section>
+
+    <div id="dashboard" hidden>
+      <nav class="admin-tabs" aria-label="Разделы админки">
+        <button class="admin-tab active" type="button" data-tab="upcoming" aria-selected="true">Предстоящие</button>
+        <button class="admin-tab" type="button" data-tab="gallery" aria-selected="false">Галерея</button>
+        <button class="admin-tab" type="button" data-tab="past" aria-selected="false">Прошедшие</button>
+      </nav>
+
+      <div class="admin-tab-panel active" data-panel="upcoming">
+      <section class="panel editor-panel">
+        <div class="panel-heading"><div><p class="eyebrow">Редактор</p><h1 id="form-title">Новое мероприятие</h1></div><button id="cancel-edit" type="button" class="text-button" hidden>Отменить редактирование</button></div>
+        <form id="event-form">
+          <input type="hidden" name="id">
+          <label class="wide">Название мероприятия<input name="title" maxlength="120" required placeholder="Например, Осенний фольклорный вечер"></label>
+          <label>Дата<input name="date" type="date" required></label>
+          <label>Место проведения <span>(необязательно)</span><input name="location" maxlength="160" placeholder="Городской культурный центр"></label>
+          <label class="wide">Описание<textarea name="description" maxlength="600" rows="4" required placeholder="Кратко расскажите о программе мероприятия"></textarea><small><output id="description-count">0</output>/600</small></label>
+          <div class="form-footer wide"><button class="button" type="submit">Опубликовать</button><p class="form-message" role="status"></p></div>
+        </form>
+      </section>
+
+      <section class="events-section">
+        <div class="section-heading"><div><p class="eyebrow">На сайте</p><h2>Предстоящие мероприятия</h2></div><span id="event-count"></span></div>
+        <div id="event-list" class="event-list" aria-live="polite"></div>
+      </section>
+      </div>
+
+      <section class="panel gallery-admin-panel admin-tab-panel" data-panel="gallery" hidden>
+        <div class="panel-heading"><div><p class="eyebrow">Слайд-шоу</p><h2>Фотографии галереи</h2></div><span id="gallery-count"></span></div>
+        <form id="gallery-form">
+          <label class="upload-field">Фотография
+            <input name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
+            <span>JPG, PNG или WebP, не больше 10 МБ</span>
+          </label>
+          <label>Подпись <span>(необязательно)</span><input name="caption" maxlength="180" placeholder="Например, Весенний фестиваль в Праге"></label>
+          <div class="gallery-form-footer"><button class="button" type="submit">Добавить фотографию</button><p class="form-message" role="status"></p></div>
+        </form>
+        <div id="gallery-list" class="gallery-admin-list" aria-live="polite"></div>
+      </section>
+
+      <div class="admin-tab-panel" data-panel="past" hidden>
+        <section class="panel editor-panel past-editor-panel">
+          <div class="panel-heading"><div><p class="eyebrow">Архив</p><h1 id="past-form-title">Новое прошедшее мероприятие</h1></div><button id="cancel-past-edit" type="button" class="text-button" hidden>Отменить редактирование</button></div>
+          <form id="past-event-form">
+            <input type="hidden" name="id">
+            <label class="wide">Фотография <span id="past-image-hint">(обязательно)</span><input name="image" type="file" accept="image/jpeg,image/png,image/webp" required><small>JPG, PNG или WebP, не больше 10 МБ</small></label>
+            <label class="wide">Название мероприятия<input name="title" maxlength="120" required placeholder="Например, Весенний фестиваль наследия"></label>
+            <label>Дата<input name="date" type="date" required></label>
+            <label class="wide">Описание<textarea name="description" maxlength="600" rows="4" required placeholder="Кратко расскажите о прошедшем мероприятии"></textarea><small><output id="past-description-count">0</output>/600</small></label>
+            <div class="form-footer wide"><button class="button" type="submit">Добавить в архив</button><p class="form-message" role="status"></p></div>
+          </form>
+        </section>
+        <section class="events-section">
+          <div class="section-heading"><div><p class="eyebrow">На сайте</p><h2>Прошедшие мероприятия</h2></div><span id="past-event-count"></span></div>
+          <div id="past-event-list" class="event-list" aria-live="polite"></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="delete-dialog">
+    <form method="dialog">
+      <h2>Удалить мероприятие?</h2>
+      <p id="delete-name"></p>
+      <div><button value="cancel" class="button button-light">Отмена</button><button id="confirm-delete" value="confirm" class="button button-danger">Удалить</button></div>
+    </form>
+  </dialog>
+  <script src="admin.js?v=3"></script>
+</body>
+</html>

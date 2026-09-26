@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Slavyanochka — фольклорный славянский ансамбль">
+  <title>Slavyanochka — славянский ансамбль</title>
+  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/hero-gzhel.css?v=8">
+  <link rel="stylesheet" href="css/contact-modal.css?v=1">
+  <link rel="stylesheet" href="css/events.css?v=3">
+  <link rel="stylesheet" href="css/gallery.css?v=1">
+  <link rel="stylesheet" href="css/past-events.css?v=1">
+  <link rel="stylesheet" href="css/invite-cta.css?v=1">
+</head>
+<body>
+<div class="page">
+  <header class="header wrap gzhel-header">
+    <a class="logo header-logo" href="#top" aria-label="Slavyanochka — на главную"><img src="assets/logo.png?v=2" alt="Slavyanochka"></a>
+    <button class="menu" type="button" aria-label="Открыть меню" aria-controls="hero-navigation" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <nav id="hero-navigation" aria-label="Основная навигация"><a class="active" href="#top" aria-current="page">Главная</a><a href="#events">Мероприятия</a><a href="#about">О нас</a><a href="#gallery">Галерея</a><a href="#support">Поддержать</a><a href="#contacts">Контакты</a></nav>
+    <label class="language"><span class="sr-only">Язык</span><select id="language" aria-label="Выбрать язык"><option value="ru">RU</option><option value="uk">UA</option><option value="cs">CZ</option><option value="en">EN</option><option value="pl">PL</option><option value="hr">HR</option></select></label>
+    <div class="social" aria-label="Социальные сети">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="currentColor"/><path d="M13.5 20v-7h2.4l.4-3h-2.8V8.3c0-.9.3-1.5 1.6-1.5h1.5V4.2c-.3 0-1.2-.2-2.2-.2-2.2 0-3.7 1.4-3.7 3.9V10H8.2v3h2.5v7" fill="#fff"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="currentColor"/><rect x="5" y="7" width="14" height="10" rx="3" fill="#fff"/><path d="m10 9 5 3-5 3Z" fill="currentColor"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="mailto:hello@example.com" aria-label="E-mail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10.5" stroke="#8CB8EE"/><rect x="5" y="7" width="14" height="10" rx="1"/><path d="m5 8 7 5 7-5"/></svg></a>
+    </div>
+    <script>
+      // Header-only accessibility; main.js retains the existing menu toggle.
+      (() => {
+        const header = document.currentScript.closest('header');
+        const button = header.querySelector('.menu');
+        const navigation = header.querySelector('nav');
+        new MutationObserver(() => {
+          const open = navigation.classList.contains('open');
+          button.setAttribute('aria-expanded', String(open));
+          button.setAttribute('aria-label', open ? 'Закрыть меню' : 'Открыть меню');
+        }).observe(navigation, { attributes: true, attributeFilter: ['class'] });
+        navigation.addEventListener('click', event => {
+          if (event.target.closest('a')) navigation.classList.remove('open');
+        });
+        header.addEventListener('keydown', event => {
+          if (event.key === 'Escape' && navigation.classList.contains('open')) {
+            navigation.classList.remove('open');
+            button.focus();
+          }
+        });
+      })();
+    </script>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap gzhel-hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <h1 id="hero-title">Slavyanochka</h1>
+        <h2>Фольклорный славянский<br>ансамбль</h2>
+        <div class="divider" aria-hidden="true"><svg viewBox="0 0 48 28"><use href="assets/hero-ornaments.svg#divider"/></svg></div>
+        <p class="features">Традиционные песни&nbsp; • &nbsp;Живые выступления&nbsp; • &nbsp;Культурное наследие</p>
+        <p class="slogan">«Сохраняем славянские традиции<br>через музыку».</p>
+        <div class="actions"><a class="btn" href="#invite"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="9" r="5" fill="currentColor"/><path d="M2 28v-5a10 10 0 0 1 20 0v5Z" fill="currentColor"/><path d="M23 5a5 5 0 0 1 0 10m2 3a8 8 0 0 1 5 7v3h-5" fill="none" stroke="currentColor" stroke-width="3"/></svg><span>Пригласить<br>на мероприятие</span></a><a class="btn btn-light" href="#events"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="6" width="24" height="23" rx="2"/><path d="M4 13h24M10 3v7M22 3v7M9 18h3m3 0h3m3 0h3M9 23h3m3 0h3m3 0h3"/></svg><span>Ближайшие<br>мероприятия</span></a></div>
+      </div>
+      <div class="hero-photo">
+        <!-- Replace only this transparent image's src with assets/team.jpg; add an appropriate alt. -->
+        <img class="hero-photo-image" src="assets/hero-photo.png" xmlns='http://www.w3.org/2000/svg' width='800' height='740'/%3E" alt="" width="800" height="740">
+        <svg class="decorative-frame" viewBox="0 0 800 740" fill="none" aria-hidden="true" focusable="false">
+          <defs>
+            <path id="hero-frame-outline" d="M400 70C305 70 241 101 224 159Q220 176 206 177C140 180 96 223 94 286Q94 298 84 303C60 316 48 342 51 379C47 420 56 454 82 469Q91 474 92 486C94 530 126 561 164 571Q174 574 178 589C200 655 286 681 400 681C514 681 600 655 622 589Q626 574 636 571C674 561 706 530 708 486Q709 474 718 469C744 454 753 420 749 379C752 342 740 316 716 303Q706 298 706 286C704 223 660 180 594 177Q580 176 576 159C559 101 495 70 400 70Z"/>
+            <clipPath id="hero-photo-clip" clipPathUnits="objectBoundingBox"><use href="#hero-frame-outline" transform="scale(.00125 .001351351351)"/></clipPath>
+          </defs>
+          <use href="#hero-frame-outline" stroke="#0645B5" stroke-width="3"/>
+          <use href="#hero-frame-outline" transform="translate(400 375) scale(.976) translate(-400 -375)" stroke="#8CB8EE" stroke-width="1.6"/>
+          <use href="#hero-frame-outline" transform="translate(400 375) scale(1.013) translate(-400 -375)" stroke="#B9D4F5" stroke-width="1"/>
+        </svg>
+        <svg class="decorative-flowers" viewBox="0 0 800 740" aria-hidden="true" focusable="false"><use href="assets/hero-ornaments.svg#frame-flowers"/></svg>
+        <svg class="decorative-bird" viewBox="0 0 800 740" aria-hidden="true" focusable="false"><use href="assets/hero-ornaments.svg#bird"/></svg>
+        <svg class="decorative-notes" viewBox="0 0 800 740" aria-hidden="true" focusable="false"><use href="assets/hero-ornaments.svg#notes"/></svg>
+      </div>
+      <svg class="hero-wave" viewBox="0 0 1440 190" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M0 93C210 13 345 188 625 111S1050 8 1440 105V190H0Z" fill="#EAF3FF" fill-opacity=".65"/><path d="M0 151C275 13 403 241 827 108S1225 111 1440 151" fill="none" stroke="#8CB8EE" stroke-opacity=".27" stroke-width="2"/><path d="M0 142C316 49 421 227 777 124S1160 46 1440 135" fill="none" stroke="#fff" stroke-width="4"/></svg>
+      <svg class="hero-corner" viewBox="0 0 320 380" aria-hidden="true" focusable="false"><use href="assets/hero-ornaments.svg#corner"/></svg>
+    </section>
+
+    <section class="about wrap card" id="about">
+      <div><h2><i>❧</i> О коллективе <i>❧</i></h2><p>Slavyanochka — это фольклорный ансамбль, посвятивший себя сохранению красоты славянской музыки и традиций. Через душевные выступления, яркие костюмы и аутентичные песни мы объединяем поколения и делимся духом нашего культурного наследия со зрителями всех возрастов.</p></div>
+      <img src="assets/about-flower.png" alt="Гжельская цветочная роспись">
+    </section>
+
+    <section class="gallery-showcase wrap" id="gallery" hidden aria-labelledby="gallery-title">
+      <h2 class="section-title" id="gallery-title"><span>❖</span> Наша галерея <span>❖</span></h2>
+      <div class="slideshow" aria-roledescription="карусель" aria-label="Фотографии ансамбля">
+        <div class="slideshow-stage" aria-live="polite"></div>
+        <button class="slide-arrow slide-prev" type="button" aria-label="Предыдущая фотография">‹</button>
+        <button class="slide-arrow slide-next" type="button" aria-label="Следующая фотография">›</button>
+        <div class="slide-counter" aria-hidden="true"></div>
+      </div>
+      <div class="slide-dots" role="group" aria-label="Выбор фотографии"></div>
+    </section>
+
+    <section class="past wrap">
+      <h2 class="section-title"><span>❖</span> Прошедшие мероприятия <span>❖</span></h2>
+      <div class="past-slider-wrap">
+        <button class="past-arrow past-prev" type="button" aria-label="Показать предыдущие мероприятия">‹</button>
+        <div class="event-grid" tabindex="0" aria-label="Прошедшие мероприятия"><p class="past-loading">Загружаем мероприятия…</p></div>
+        <button class="past-arrow past-next" type="button" aria-label="Показать следующие мероприятия">›</button>
+      </div>
+    </section>
+
+    <section class="upcoming wrap card" id="events">
+      <h2 class="section-title"><span>❖</span> Предстоящие мероприятия <span>❖</span></h2>
+      <div class="upcoming-layout">
+        <div class="dates" aria-live="polite"><p class="events-loading">Загружаем мероприятия…</p></div>
+        <div class="calendar" aria-label="Календарь мероприятий">
+          <div class="calendar-nav"><button class="calendar-prev" type="button" aria-label="Предыдущий месяц">‹</button><h3 aria-live="polite">Календарь</h3><button class="calendar-next" type="button" aria-label="Следующий месяц">›</button></div>
+          <div class="week labels"></div><div class="week days"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="support wrap card" id="support"><div class="floral">✿</div><div><h2>Поддержать ансамбль</h2><p>Каждое выступление, репетиция, костюм и песня становятся возможными благодаря доброте наших поддерживающих нас людей.</p><p>Ваш вклад помогает сохранить славянские традиции и позволяет нам продолжать делиться нашей музыкой с сообществами рядом и далеко.</p><strong>Спасибо, что вы часть нашего пути!</strong></div><form id="donation-form"><label for="sum">Сумма пожертвования</label><div class="money"><input id="sum" inputmode="decimal" type="number" min="1" step="1" aria-label="Сумма" required><select id="currency" aria-label="Валюта"><option>CZK</option><option>EUR</option><option>USD</option><option>RUB</option></select></div><button type="submit">♥ &nbsp; Перейти к оплате</button></form><div class="floral right">✿</div></section>
+
+    <section class="invite invite-cta wrap card" id="invite">
+      <div class="invite-visual"><img src="assets/bird.png" alt="Гжельская птица"></div>
+      <div class="invite-copy"><h2>Пригласите Slavyanochka<br>на ваше мероприятие</h2><div class="divider" aria-hidden="true">◆</div><p>Ищете аутентичную славянскую народную музыку для вашего фестиваля, культурного праздника, свадьбы, общественного мероприятия или праздничной программы?</p><em>Мы будем рады выступить для вашей аудитории!</em></div>
+      <a class="btn" href="#contacts">✦ &nbsp; Обсудить выступление</a>
+    </section>
+  </main>
+
+  <footer class="wrap" id="contacts"><div class="logo footer-logo"><img src="assets/logo.png?v=2" alt="Slavyanochka"></div><div><a href="#top">Главная</a><a href="#events">Мероприятия</a><a href="#support">Поддержать</a><a href="#contacts">Контакты</a></div><div><h3>Мы в соцсетях</h3><a href="#">● &nbsp;Facebook</a><a href="#">▶ &nbsp;YouTube</a><a href="#">◎ &nbsp;Instagram</a><a href="mailto:hello@example.com">✉ &nbsp;Email</a></div><div><h3>Будьте в курсе</h3><p>Подпишитесь на нашу рассылку,<br>чтобы получать новости о мероприятиях<br>и выступлениях.</p><form class="subscribe"><input type="email" placeholder="Ваш email адрес"><button>›</button></form></div></footer>
+  <div class="bottom-ornament">❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧ ✿ ❧</div>
+</div>
+<div class="payment-modal" id="payment-modal" role="dialog" aria-modal="true" aria-labelledby="payment-title" hidden><div class="modal-backdrop" data-close-modal></div><div class="modal-card"><button class="modal-close" type="button" data-close-modal aria-label="Закрыть">×</button><div class="modal-mark">♥</div><h2 id="payment-title">Спасибо за вашу поддержку!</h2><p class="modal-message">Ваш вклад помогает нам сохранять славянские музыкальные традиции.</p><div class="modal-total"><span>Сумма</span><strong id="modal-amount">0 CZK</strong></div><label for="modal-currency">Валюта</label><select id="modal-currency"><option>CZK</option><option>EUR</option><option>USD</option><option>RUB</option></select><button class="modal-pay" type="button">♥ &nbsp; Поддержать и оплатить</button><p class="secure-note">Безопасная оплата</p><div class="payment-brands" aria-label="Visa и Mastercard"><span class="visa">VISA</span><span class="mastercard"><i></i><i></i><b>Mastercard</b></span></div></div></div>
+<div class="contact-modal" id="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contact-title" hidden><div class="contact-backdrop" data-close-contact></div><div class="contact-card"><button class="contact-close" type="button" data-close-contact aria-label="Закрыть">×</button><div class="contact-bird">❧</div><h2 id="contact-title">Как вам удобно связаться?</h2><p>Выберите удобный способ — мы с радостью ответим вам.</p><div class="contact-options"><a class="contact-option whatsapp" href="https://wa.me/" target="_blank" rel="noopener"><span>◉</span><b>WhatsApp</b></a><a class="contact-option telegram" href="https://t.me/" target="_blank" rel="noopener"><span>➤</span><b>Telegram</b></a><a class="contact-option phone" href="tel:+420000000000"><span>☎</span><b>Телефон</b></a><a class="contact-option email" href="mailto:hello@example.com"><span>✉</span><b>Почта</b></a><a class="contact-option facebook" href="https://facebook.com/" target="_blank" rel="noopener"><span>f</span><b>Facebook</b></a></div></div></div>
+<script src="js/main.js?v=8"></script>
+<script src="js/hero-slogan.js?v=1"></script>
+<script src="js/events.js?v=2"></script>
+<script src="js/gallery.js?v=1"></script>
+<script src="js/past-events.js?v=1"></script>
+</body></html>

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "ea20b2c3aa0983cb19c8b713",
+    "file": "ea20b2c3aa0983cb19c8b713.jpg",
+    "caption": "Мероприятие 1",
+    "order": 0
+  },
+  {
+    "id": "21ad0f9010edb5545ea0ec67",
+    "file": "21ad0f9010edb5545ea0ec67.jpg",
+    "caption": "Мероприятие 2",
+    "order": 1
+  }
+]
