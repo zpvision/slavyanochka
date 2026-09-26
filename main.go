@@ -13,14 +13,13 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
 )
 
 const (
-	adminUser     = "admin"
-	adminPassword = "admin"
 	sessionCookie = "slavyanochka_admin"
 )
 
@@ -48,24 +47,46 @@ type PastEvent struct {
 }
 
 type application struct {
-	eventsPath  string
-	galleryPath string
-	pastPath    string
-	uploadsPath string
-	eventsMu    sync.RWMutex
-	galleryMu   sync.RWMutex
-	pastMu      sync.RWMutex
-	sessionsMu  sync.RWMutex
-	sessions    map[string]time.Time
+	adminUser     string
+	adminPassword string
+	eventsPath    string
+	galleryPath   string
+	pastPath      string
+	uploadsPath   string
+	eventsMu      sync.RWMutex
+	galleryMu     sync.RWMutex
+	pastMu        sync.RWMutex
+	sessionsMu    sync.RWMutex
+	sessions      map[string]time.Time
 }
 
 func main() {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	portNumber, err := strconv.Atoi(port)
+	if err != nil || portNumber < 1 || portNumber > 65535 {
+		log.Fatalf("invalid PORT %q: must be a number between 1 and 65535", port)
+	}
+
+	adminUser := os.Getenv("ADMIN_USER")
+	if adminUser == "" {
+		adminUser = "admin"
+	}
+	adminPassword := os.Getenv("ADMIN_PASSWORD")
+	if os.Getenv("APP_ENV") == "production" && adminPassword == "" {
+		log.Fatal("ADMIN_PASSWORD must be set when APP_ENV=production")
+	}
+
 	app := &application{
-		eventsPath:  filepath.Join("data", "events.json"),
-		galleryPath: filepath.Join("data", "gallery.json"),
-		pastPath:    filepath.Join("data", "past-events.json"),
-		uploadsPath: filepath.Join("data", "uploads"),
-		sessions:    make(map[string]time.Time),
+		adminUser:     adminUser,
+		adminPassword: adminPassword,
+		eventsPath:    filepath.Join("data", "events.json"),
+		galleryPath:   filepath.Join("data", "gallery.json"),
+		pastPath:      filepath.Join("data", "past-events.json"),
+		uploadsPath:   filepath.Join("data", "uploads"),
+		sessions:      make(map[string]time.Time),
 	}
 	if err := app.ensureEventsFile(); err != nil {
 		log.Fatal(err)
@@ -96,9 +117,10 @@ func main() {
 	mux.HandleFunc("GET /uploads/{file}", app.serveUpload)
 	mux.Handle("/", http.FileServer(http.Dir("static")))
 
-	server := &http.Server{Addr: ":8080", Handler: securityHeaders(mux), ReadHeaderTimeout: 5 * time.Second}
-	log.Println("Slavyanochka: http://localhost:8080")
-	log.Println("Admin: http://localhost:8080/admin/")
+	address := ":" + port
+	server := &http.Server{Addr: address, Handler: securityHeaders(mux), ReadHeaderTimeout: 5 * time.Second}
+	log.Printf("Slavyanochka: http://localhost:%s", port)
+	log.Printf("Admin: http://localhost:%s/admin/", port)
 	log.Fatal(server.ListenAndServe())
 }
 
@@ -135,8 +157,8 @@ func (app *application) login(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, err.Error())
 		return
 	}
-	userOK := subtle.ConstantTimeCompare([]byte(credentials.Username), []byte(adminUser)) == 1
-	passwordOK := subtle.ConstantTimeCompare([]byte(credentials.Password), []byte(adminPassword)) == 1
+	userOK := subtle.ConstantTimeCompare([]byte(credentials.Username), []byte(app.adminUser)) == 1
+	passwordOK := subtle.ConstantTimeCompare([]byte(credentials.Password), []byte(app.adminPassword)) == 1
 	if !userOK || !passwordOK {
 		writeError(w, http.StatusUnauthorized, "Неверный логин или пароль")
 		return
